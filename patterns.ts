@@ -132,3 +132,55 @@
 // const carStrat = new ConcreteCarStrategy()
 // const car = carStrat.useFactory()
 // console.log(car.deliver())
+
+
+// -------------------- OBSERVER -------------------- 
+interface IObserver {
+    update(notification: string): void;
+}
+interface NotificationSysteme {
+    attach(observer: IObserver): void;
+    detach(observer: IObserver): void;
+    notify(notification: string): void;
+}
+
+class ConcreteNotificationSysteme implements NotificationSysteme {
+    private observers: IObserver[] = [];
+
+    attach(observer: IObserver): void {
+        this.observers.push(observer);
+    }
+
+    detach(observer: IObserver): void {
+        const index = this.observers.indexOf(observer);
+        if (index !== -1) this.observers.splice(index, 1);
+    }
+
+    notify(notification: string): void {
+        for (const observer of this.observers) {
+            observer.update(notification); // Вызываем метод наблюдателя
+        }
+    }
+}
+
+class User implements IObserver {
+    constructor(
+        public id: number,
+        public username: string,
+        public notifications: string[] = []
+    ) { }
+
+    update(notification: string): void {
+        this.notifications.push(notification);
+    }
+}
+
+// USAGE
+const system = new ConcreteNotificationSysteme();
+const user1 = new User(1, "Hulli");
+const user2 = new User(2, "Joe");
+
+system.attach(user1);
+system.attach(user2);
+
+system.notify("New message!");

@@ -1,0 +1,16 @@
+{
+  "name": "patterns",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npx tsc",
+    "start": "node dist/patterns"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "typescript": "^5.8.3"
+  }
+}

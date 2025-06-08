@@ -57,7 +57,7 @@
 // context.setStrategy(new ConcreteStrategyB());
 // console.log(context.reverseArr([1, 2, 3]))
 
-// -------------------- ADAPTER, ABSTRACT FACTORY -------------------- 
+// -------------------- ADAPTER, FACTORY METHOD -------------------- 
 // abstract class Fermented {
 //     public readonly price: number = 100
 //     constructor(public shelfLife: Date) { }
@@ -135,52 +135,117 @@
 
 
 // -------------------- OBSERVER -------------------- 
-interface IObserver {
-    update(notification: string): void;
+// interface IObserver {
+//     update(notification: string): void;
+// }
+// interface NotificationSysteme {
+//     attach(observer: IObserver): void;
+//     detach(observer: IObserver): void;
+//     notify(notification: string): void;
+// }
+
+// class ConcreteNotificationSysteme implements NotificationSysteme {
+//     private observers: IObserver[] = [];
+
+//     attach(observer: IObserver): void {
+//         this.observers.push(observer);
+//     }
+
+//     detach(observer: IObserver): void {
+//         const index = this.observers.indexOf(observer);
+//         if (index !== -1) this.observers.splice(index, 1);
+//     }
+
+//     notify(notification: string): void {
+//         for (const observer of this.observers) {
+//             observer.update(notification); // Вызываем метод наблюдателя
+//         }
+//     }
+// }
+
+// class User implements IObserver {
+//     constructor(
+//         public id: number,
+//         public username: string,
+//         public notifications: string[] = []
+//     ) { }
+
+//     update(notification: string): void {
+//         this.notifications.push(notification);
+//     }
+// }
+
+// // USAGE
+// const system = new ConcreteNotificationSysteme();
+// const user1 = new User(1, "Hulli");
+// const user2 = new User(2, "Joe");
+
+// system.attach(user1);
+// system.attach(user2);
+
+// system.notify("New message!");
+
+
+// -------------------- ABSTRACT FACTORY -------------------- 
+enum Sizes {
+    'small',
+    'medium',
+    'big'
 }
-interface NotificationSysteme {
-    attach(observer: IObserver): void;
-    detach(observer: IObserver): void;
-    notify(notification: string): void;
+interface Cars {
+    isCar: true
+}
+interface SuperCar extends Cars {
+    highSpeed: number
+    avgSpeed: number
+    size: Sizes.small
+}
+interface FamilyCar extends Cars {
+    avgSpeed: number
+    convenient: boolean
+    size: Sizes.medium
+}
+interface SUVCar extends Cars {
+    avgSpeed: number
+    bigWheel: boolean
+    size: Sizes.big
+}
+// Family of products
+interface CarFactory {
+  createSuperCar(): SuperCar;
+  createFamilyCar(): FamilyCar; // Several types of products!
+  createSUV(): SUVCar;
 }
 
-class ConcreteNotificationSysteme implements NotificationSysteme {
-    private observers: IObserver[] = [];
-
-    attach(observer: IObserver): void {
-        this.observers.push(observer);
-    }
-
-    detach(observer: IObserver): void {
-        const index = this.observers.indexOf(observer);
-        if (index !== -1) this.observers.splice(index, 1);
-    }
-
-    notify(notification: string): void {
-        for (const observer of this.observers) {
-            observer.update(notification); // Вызываем метод наблюдателя
-        }
-    }
+// Specific factories for different families
+class FerrariFactory implements CarFactory {
+  createSuperCar(): SuperCar {
+    return new FerrariCalifornia();
+  }
+  
+  createFamilyCar(): FamilyCar {
+    return new FerrariGTC4Lusso();
+  }
+  
+  createSUV(): SUVCar {
+    return new FerrariPurosangue();
+  }
 }
 
-class User implements IObserver {
-    constructor(
-        public id: number,
-        public username: string,
-        public notifications: string[] = []
-    ) { }
-
-    update(notification: string): void {
-        this.notifications.push(notification);
-    }
+class FordFactory implements CarFactory {
+  createSuperCar(): SuperCar {
+    return new FordGT();
+  }
+  
+  createFamilyCar(): FamilyCar {
+    return new FordMondeo();
+  }
+  
+  createSUV(): SUVCar {
+    return new FordExplorer();
+  }
 }
 
 // USAGE
-const system = new ConcreteNotificationSysteme();
-const user1 = new User(1, "Hulli");
-const user2 = new User(2, "Joe");
-
-system.attach(user1);
-system.attach(user2);
-
-system.notify("New message!");
+const ferrariFactory = new FerrariFactory();
+const familyCar = ferrariFactory.createFamilyCar();

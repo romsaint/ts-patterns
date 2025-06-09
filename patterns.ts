@@ -1,4 +1,4 @@
-// -------------------- SINGLETON -------------------- 
+// -------------------- SINGLETON --------------------
 // class DataBase {
 //     static instance: DataBase
 //     private constructor() {}
@@ -16,7 +16,7 @@
 // const db = DataBase.getInstance()
 // console.log(db.hello())
 
-// -------------------- STRATEGY -------------------- 
+// -------------------- STRATEGY --------------------
 // interface Strategy {
 //     reverseArr(arr: number[]): number[]
 // }
@@ -57,7 +57,7 @@
 // context.setStrategy(new ConcreteStrategyB());
 // console.log(context.reverseArr([1, 2, 3]))
 
-// -------------------- ADAPTER, FACTORY METHOD -------------------- 
+// -------------------- ADAPTER, FACTORY METHOD --------------------
 // abstract class Fermented {
 //     public readonly price: number = 100
 //     constructor(public shelfLife: Date) { }
@@ -134,7 +134,7 @@
 // console.log(car.deliver())
 
 
-// -------------------- OBSERVER -------------------- 
+// -------------------- OBSERVER --------------------
 // interface IObserver {
 //     update(notification: string): void;
 // }
@@ -186,7 +186,7 @@
 // system.notify("New message!");
 
 
-// -------------------- ABSTRACT FACTORY -------------------- 
+// -------------------- ABSTRACT FACTORY --------------------
 // enum Sizes {
 //     'small',
 //     'medium',
@@ -251,59 +251,75 @@
 // const familyCar = ferrariFactory.createFamilyCar();
 
 
-//  Task1: You need to fix this code by applying different design patterns, solution - task1.ts 
-class BadRestaurantSystem {
-    private orders: any[] = [];
-    private menu: any[] = [
-        { id: 1, name: "Pizza", type: "food", price: 10 },
-        { id: 2, name: "Burger", type: "food", price: 7 },
-        { id: 3, name: "Cola", type: "drink", price: 2 }
-    ];
+//  Task1: You need to fix this code by applying different design patterns, solution - task1.ts
+// class BadRestaurantSystem {
+//     private orders: any[] = [];
+//     private menu: any[] = [
+//         { id: 1, name: "Pizza", type: "food", price: 10 },
+//         { id: 2, name: "Burger", type: "food", price: 7 },
+//         { id: 3, name: "Cola", type: "drink", price: 2 }
+//     ];
 
-    public takeOrder(customerName: string, items: number[]): void {
-        let total = 0;
-        let orderDetails = "";
+//     public takeOrder(customerName: string, items: number[]): void {
+//         let total = 0;
+//         let orderDetails = "";
 
-        for (const itemId of items) {
-            const menuItem = this.menu.find(item => item.id === itemId);
-            if (menuItem) {
-                total += menuItem.price;
-                orderDetails += `${menuItem.name}, `;
-            }
-        }
+//         for (const itemId of items) {
+//             const menuItem = this.menu.find(item => item.id === itemId);
+//             if (menuItem) {
+//                 total += menuItem.price;
+//                 orderDetails += `${menuItem.name}, `;
+//             }
+//         }
 
-        this.orders.push({
-            customer: customerName,
-            items: items,
-            total: total,
-            details: orderDetails.slice(0, -2)
-        });
+//         this.orders.push({
+//             customer: customerName,
+//             items: items,
+//             total: total,
+//             details: orderDetails.slice(0, -2)
+//         });
 
-        console.log(`Order for ${customerName}: $${total}`);
-        this.sendToKitchen(items);
-        this.saveToDatabase();
-    }
+//         console.log(`Order for ${customerName}: $${total}`);
+//         this.sendToKitchen(items);
+//         this.saveToDatabase();
+//     }
 
-    private sendToKitchen(items: number[]): void {
-        console.log("Sending to kitchen: ", items);
-        if (items.includes(1)) {
-            this.preparePizza();
-        }
-    }
+//     private sendToKitchen(items: number[]): void {
+//         console.log("Sending to kitchen: ", items);
+//         if (items.includes(1)) {
+//             this.preparePizza();
+//         }
+//     }
 
-    private preparePizza(): void {
-        console.log("Preparing pizza...");
-    }
+//     private preparePizza(): void {
+//         console.log("Preparing pizza...");
+//     }
 
-    private saveToDatabase(): void {
-        console.log("Saving to SQL database...");
-    }
+//     private saveToDatabase(): void {
+//         console.log("Saving to SQL database...");
+//     }
 
-    public generateReport(type: string): void {
-        if (type === "daily") {
-            console.log("Daily report:", this.orders);
-        } else if (type === "monthly") {
-            console.log("Monthly report:", this.orders);
-        }
-    }
-}
+//     public generateReport(type: string): void {
+//         if (type === "daily") {
+//             console.log("Daily report:", this.orders);
+//         } else if (type === "monthly") {
+//             console.log("Monthly report:", this.orders);
+//         }
+//     }
+// }
+
+//  Task2: You need to fix this code by applying strategy patterns and OCP, also add new strategy for ApplePay solution - task2.ts
+// class PaymentProcessor {
+//     processPayment(amount: number, type: string) {
+//         if (type === "paypal") {
+//             // Логика PayPal
+//             console.log(`Paid $${amount} via PayPal`);
+//         } else if (type === "credit") {
+//             // Логика кредитной карты
+//             console.log(`Paid $${amount} via Credit Card`);
+//         } else if (type === "crypto") {
+//             // Логика криптовалюты
+//             console.log(`Paid $${amount} via Crypto`);
+//         }
+//     }
+// }

@@ -187,65 +187,123 @@
 
 
 // -------------------- ABSTRACT FACTORY -------------------- 
-enum Sizes {
-    'small',
-    'medium',
-    'big'
-}
-interface Cars {
-    isCar: true
-}
-interface SuperCar extends Cars {
-    highSpeed: number
-    avgSpeed: number
-    size: Sizes.small
-}
-interface FamilyCar extends Cars {
-    avgSpeed: number
-    convenient: boolean
-    size: Sizes.medium
-}
-interface SUVCar extends Cars {
-    avgSpeed: number
-    bigWheel: boolean
-    size: Sizes.big
-}
-// Family of products
-interface CarFactory {
-  createSuperCar(): SuperCar;
-  createFamilyCar(): FamilyCar; // Several types of products!
-  createSUV(): SUVCar;
-}
+// enum Sizes {
+//     'small',
+//     'medium',
+//     'big'
+// }
+// interface Cars {
+//     isCar: true
+// }
+// interface SuperCar extends Cars {
+//     highSpeed: number
+//     avgSpeed: number
+//     size: Sizes.small
+// }
+// interface FamilyCar extends Cars {
+//     avgSpeed: number
+//     convenient: boolean
+//     size: Sizes.medium
+// }
+// interface SUVCar extends Cars {
+//     avgSpeed: number
+//     bigWheel: boolean
+//     size: Sizes.big
+// }
+// // Family of products
+// interface CarFactory {
+//   createSuperCar(): SuperCar;
+//   createFamilyCar(): FamilyCar; // Several types of products!
+//   createSUV(): SUVCar;
+// }
 
-// Specific factories for different families
-class FerrariFactory implements CarFactory {
-  createSuperCar(): SuperCar {
-    return new FerrariCalifornia();
-  }
-  
-  createFamilyCar(): FamilyCar {
-    return new FerrariGTC4Lusso();
-  }
-  
-  createSUV(): SUVCar {
-    return new FerrariPurosangue();
-  }
-}
+// // Specific factories for different families
+// class FerrariFactory implements CarFactory {
+//   createSuperCar(): SuperCar {
+//     return new FerrariCalifornia();
+//   }
 
-class FordFactory implements CarFactory {
-  createSuperCar(): SuperCar {
-    return new FordGT();
-  }
-  
-  createFamilyCar(): FamilyCar {
-    return new FordMondeo();
-  }
-  
-  createSUV(): SUVCar {
-    return new FordExplorer();
-  }
-}
+//   createFamilyCar(): FamilyCar {
+//     return new FerrariGTC4Lusso();
+//   }
 
-// USAGE
-const ferrariFactory = new FerrariFactory();
-const familyCar = ferrariFactory.createFamilyCar();
+//   createSUV(): SUVCar {
+//     return new FerrariPurosangue();
+//   }
+// }
+
+// class FordFactory implements CarFactory {
+//   createSuperCar(): SuperCar {
+//     return new FordGT();
+//   }
+
+//   createFamilyCar(): FamilyCar {
+//     return new FordMondeo();
+//   }
+
+//   createSUV(): SUVCar {
+//     return new FordExplorer();
+//   }
+// }
+
+// // USAGE
+// const ferrariFactory = new FerrariFactory();
+// const familyCar = ferrariFactory.createFamilyCar();
+
+
+//  Task1: You need to fix this code by applying different design patterns, solution - task1.ts 
+class BadRestaurantSystem {
+    private orders: any[] = [];
+    private menu: any[] = [
+        { id: 1, name: "Pizza", type: "food", price: 10 },
+        { id: 2, name: "Burger", type: "food", price: 7 },
+        { id: 3, name: "Cola", type: "drink", price: 2 }
+    ];
+
+    public takeOrder(customerName: string, items: number[]): void {
+        let total = 0;
+        let orderDetails = "";
+
+        for (const itemId of items) {
+            const menuItem = this.menu.find(item => item.id === itemId);
+            if (menuItem) {
+                total += menuItem.price;
+                orderDetails += `${menuItem.name}, `;
+            }
+        }
+
+        this.orders.push({
+            customer: customerName,
+            items: items,
+            total: total,
+            details: orderDetails.slice(0, -2)
+        });
+
+        console.log(`Order for ${customerName}: $${total}`);
+        this.sendToKitchen(items);
+        this.saveToDatabase();
+    }
+
+    private sendToKitchen(items: number[]): void {
+        console.log("Sending to kitchen: ", items);
+        if (items.includes(1)) {
+            this.preparePizza();
+        }
+    }
+
+    private preparePizza(): void {
+        console.log("Preparing pizza...");
+    }
+
+    private saveToDatabase(): void {
+        console.log("Saving to SQL database...");
+    }
+
+    public generateReport(type: string): void {
+        if (type === "daily") {
+            console.log("Daily report:", this.orders);
+        } else if (type === "monthly") {
+            console.log("Monthly report:", this.orders);
+        }
+    }
+}

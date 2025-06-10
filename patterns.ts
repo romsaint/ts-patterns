@@ -323,3 +323,24 @@
 //         }
 //     }
 // }
+
+//  Task3: You need to fix this code by applying LSP, use composition instead of inheritance, create the right abstraction, solution - task3.ts 
+// class Bird {
+//     fly() {
+//         console.log("Flying");
+//     }
+    
+//     eat() {
+//         console.log("Eating");
+//     }
+// }
+
+// class Eagle extends Bird {
+//     // Can fly
+// }
+
+// class Penguin extends Bird {
+//     fly() {
+//         throw new Error("Penguins can't fly!");
+//     }
+// }

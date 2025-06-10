@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "npx tsc",
-    "start": "node dist/task2"
+    "start": "node dist/task3"
   },
   "keywords": [],
   "author": "",

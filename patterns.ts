@@ -344,3 +344,34 @@
 //         throw new Error("Penguins can't fly!");
 //     }
 // }
+
+// Tasks4:
+// 1. Create the right interface for observers
+// 2. Remove the encapsulation violation
+// 3. Add an unsubscribe option
+// 4. Implement different types of subscribers (email/SMS)
+// solution - task4.ts 
+
+// class NewsPublisher {
+//     private subscribers: any[] = [];
+    
+//     addSubscriber(sub: any) {
+//         this.subscribers.push(sub);
+//     }
+    
+//     publishNews(news: string) {
+//         console.log(`Breaking news: ${news}`);
+//         this.subscribers.forEach(sub => {
+//             // Нарушение инкапсуляции
+//             sub.notify(news);
+//         });
+//     }
+// }
+
+// class Subscriber {
+//     constructor(private name: string) {}
+    
+//     notify(news: string) {
+//         console.log(`${this.name} received: ${news}`);
+//     }
+// }
